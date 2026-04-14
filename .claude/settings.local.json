@@ -2,7 +2,19 @@
   "permissions": {
     "allow": [
       "Bash(npm install framer-motion next-themes lucide-react)",
-      "Bash(npx shadcn@latest init --defaults -y)"
+      "Bash(npx shadcn@latest init --defaults -y)",
+      "Bash(npx shadcn@latest add badge separator sheet card -y)",
+      "Bash(npm run build)",
+      "Bash(node -e \"const l = require\\(''lucide-react''\\); const icons = Object.keys\\(l\\); console.log\\(icons.filter\\(k => k.toLowerCase\\(\\).includes\\(''git''\\) || k.toLowerCase\\(\\).includes\\(''twit''\\) || k.toLowerCase\\(\\).includes\\(''link''\\) || k.toLowerCase\\(\\).includes\\(''x''\\)\\).join\\('', ''\\)\\)\")",
+      "Bash(node -e \"const l = require\\(''lucide-react''\\); const icons = Object.keys\\(l\\); console.log\\(icons.filter\\(k => !k.startsWith\\(''Lucide''\\) && !k.startsWith\\(''lucide''\\) && k !== k.toUpperCase\\(\\)\\).slice\\(0, 50\\).join\\('', ''\\)\\)\")",
+      "Bash(node -p \"require\\(''./node_modules/lucide-react/package.json''\\).version\")",
+      "Bash(node -e \"import\\(''lucide-react''\\).then\\(m => console.log\\(Object.keys\\(m\\).filter\\(k => [''Globe'', ''AtSign'', ''Share2'', ''ExternalLink'', ''Link'', ''X'', ''Rss''].includes\\(k\\)\\).join\\('', ''\\)\\)\\)\")",
+      "Bash(node -e \"import\\(''lucide-react''\\).then\\(m => console.log\\(Object.keys\\(m\\).filter\\(k => [''Code'', ''Code2'', ''Globe'', ''AtSign'', ''X'', ''Link2'', ''Mail'', ''ArrowUpRight''].includes\\(k\\)\\).join\\('', ''\\)\\)\\)\")",
+      "Bash(node -e \"import\\(''lucide-react''\\).then\\(m => console.log\\(Object.keys\\(m\\).filter\\(k => k.toLowerCase\\(\\).includes\\(''download''\\) || k.toLowerCase\\(\\).includes\\(''filedow''\\) || k.toLowerCase\\(\\).includes\\(''arrowdown''\\)\\).filter\\(k => !k.startsWith\\(''Lucide''\\)\\).join\\('', ''\\)\\)\\)\")",
+      "Bash(npm install resend)",
+      "Bash(mv /mnt/c/Development/Me/my-portfolio/CVCarlosNG_ES.pdf /mnt/c/Development/Me/my-portfolio/public/CVCarlosNG_ES.pdf)",
+      "Bash(mv /mnt/c/Development/Me/my-portfolio/CVCarlosNG_EN.pdf /mnt/c/Development/Me/my-portfolio/public/CVCarlosNG_EN.pdf)",
+      "Bash(xargs ls:*)"
     ]
   }
 }
