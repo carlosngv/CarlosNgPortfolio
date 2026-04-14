@@ -1,11 +1,9 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI!;
+const MONGODB_URI = process.env.MONGODB_URI;
 const MONGODB_DB = process.env.MONGODB_DB ?? "portfolio-blog";
 
-if (!MONGODB_URI) {
-  throw new Error("Please define the MONGODB_URI environment variable in .env.local");
-}
+export const isDatabaseConfigured = Boolean(MONGODB_URI);
 
 // Reuse connection across hot reloads in development
 declare global {
@@ -17,6 +15,10 @@ const cached = global._mongoose ?? { conn: null, promise: null };
 global._mongoose = cached;
 
 export async function connectToDatabase(): Promise<typeof mongoose> {
+  if (!MONGODB_URI) {
+    throw new Error("Database is not configured. Please define MONGODB_URI in .env.local");
+  }
+
   if (cached.conn) return cached.conn;
 
   if (!cached.promise) {

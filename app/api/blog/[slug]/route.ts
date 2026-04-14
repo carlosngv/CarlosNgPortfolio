@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
-import { getPostBySlug, updatePost, deletePost } from "@/lib/blog/posts";
+import {
+  DatabaseUnavailableError,
+  getPostBySlug,
+  updatePost,
+  deletePost,
+} from "@/lib/blog/posts";
 import type { Post } from "@/lib/blog/types";
 
 interface RouteParams {
@@ -35,6 +40,10 @@ export async function PUT(request: Request, { params }: RouteParams) {
 
     return NextResponse.json(updated);
   } catch (error) {
+    if (error instanceof DatabaseUnavailableError) {
+      return NextResponse.json({ error: error.message }, { status: 503 });
+    }
+
     console.error("[PUT /api/blog/:slug]", error);
     return NextResponse.json({ error: "Failed to update post" }, { status: 500 });
   }
@@ -51,6 +60,10 @@ export async function DELETE(_request: Request, { params }: RouteParams) {
 
     return NextResponse.json({ message: `Post '${slug}' deleted successfully` });
   } catch (error) {
+    if (error instanceof DatabaseUnavailableError) {
+      return NextResponse.json({ error: error.message }, { status: 503 });
+    }
+
     console.error("[DELETE /api/blog/:slug]", error);
     return NextResponse.json({ error: "Failed to delete post" }, { status: 500 });
   }

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getAllPosts, createPost } from "@/lib/blog/posts";
+import { DatabaseUnavailableError, getAllPosts, createPost } from "@/lib/blog/posts";
 import type { Post } from "@/lib/blog/types";
 
 export async function GET(request: Request) {
@@ -30,6 +30,10 @@ export async function POST(request: Request) {
     const post = await createPost(body);
     return NextResponse.json(post, { status: 201 });
   } catch (error: unknown) {
+    if (error instanceof DatabaseUnavailableError) {
+      return NextResponse.json({ error: error.message }, { status: 503 });
+    }
+
     if ((error as { code?: number }).code === 11000) {
       return NextResponse.json({ error: "A post with this slug already exists" }, { status: 409 });
     }
